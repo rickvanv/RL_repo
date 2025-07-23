@@ -1,0 +1,62 @@
+initial_soc: 0.5
+capacity: 10
+size_hours: 1
+charge_efficiency: 0.9
+discharge_efficiency: 0.9
+energy_value: 0
+time_step: 0.25
+N_timesteps: 96
+threads: 4
+N_trading_timesteps: 96
+N_window_timesteps_RI: 96
+continuation_bias: 0.0
+N_daily_cycles_max: 2
+N_SOC_levels: 10
+N_price_paths: 1000
+basis_functions_type: "Hermite"
+N_basis_functions: 6
+vol_scaling: 1
+correlation_threshold_hours: 2
+use_flexibility_heuristic: False
+flexibility_threshold: 1.0
+
+
+# Jump-diffusion parameters for price simulation
+jump_lambda: 0.1
+jump_mu: 0.0
+jump_sigma: 20.0
+
+# CV interpolation method for Rolling Intrinsic strategy
+# Options: "polynomial" (fastest), "delta" (fast, exact), "sequential" (medium, no binaries), "fast_linear" (slowest, exact)
+cv_interpolation_method: "delta"
+alpha: 0.1
+
+# RL specific parameters
+solver: "glpk"  # Options: "highs", "glpk", "gurobi", etc.
+use_ri_guidance: true           # NEW: Enable/disable RI expert guidance
+cycle_violation_penalty: 10000 # Reduced from 50000 - still strong but not overwhelming
+cycle_underuse_penalty: 5000   # Increased to encourage more cycle usage
+cycle_violation_progressive: true # Enable progressive penalties for larger violations
+n_training_epochs: 500
+n_steps_for_update: 32  
+batch_size: 32  
+gamma: 1  # Changed from 1.0 - adds time discounting to prevent penalty accumulation
+learning_rate: 0.0001
+
+# Progress Tracking (NEW)
+enable_progress_tracking: true
+evaluation_frequency: 10  # Evaluate every 50 epochs for 500 epochs = 10 data points
+
+dqn:
+  state_size: 4
+  window_size: 24
+  hidden_size: 64
+  learning_rate: 0.001
+  gamma: 0.99
+  epsilon_start: 1.0
+  epsilon_end: 0.01
+  epsilon_decay: 0.995
+  replay_buffer_size: 10000
+  batch_size: 64
+  target_update_freq: 10
+  n_episodes: 200

@@ -1,0 +1,17 @@
+avro
+python-snappy
+pyarrow
+pandas
+numpy
+pyyaml
+scipy
+pyomo==6.8.0
+matplotlib
+seaborn
+plotly
+nbformat
+scikit-learn==1.5.1
+stable-baselines3==2.3.2
+gymnasium==0.29.1
+tensorboard==2.16.2
+torch
